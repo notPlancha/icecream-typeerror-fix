@@ -481,18 +481,6 @@ class TestIceCream(unittest.TestCase):
 
         pair = parseOutputIntoPairs(out, err, 3)[1][0]
         assert pair == ('multilineStr', ic.argToStringFunction(multilineStr))
-
-    def testContextAbsPathMultiLine(self):
-        multilineStr = 'line1\nline2'
-        with configureIcecreamOutput(includeContext=True, contextAbsPath=True):
-            with disableColoring(), captureStandardStreams() as (out, err):
-                ic(multilineStr)
-
-        firstLine = err.getvalue().splitlines()[0]
-        assert lineIsAbsPathContext(firstLine)
-
-        pair = parseOutputIntoPairs(out, err, 3)[1][0]
-        assert pair == ('multilineStr', ic.argToStringFunction(multilineStr))
     
     def testFormat(self):
         with disableColoring(), captureStandardStreams() as (out, err):
@@ -616,3 +604,9 @@ ic| (a,
     def testConfigureOutputWithNoParameters(self):
         with self.assertRaises(TypeError):
             ic.configureOutput()
+    
+    def testSymPy(self):
+      from sympy.abc import x, y
+      d = {x: 1, y: 2}
+      with disableColoring(), captureStandardStreams() as (out, err):
+          ic(d)
