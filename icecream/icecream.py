@@ -33,7 +33,7 @@ from pygments import highlight
 from pygments.formatters import Terminal256Formatter
 from pygments.lexers import PythonLexer as PyLexer, Python3Lexer as Py3Lexer
 
-from .coloring import SolarizedDark
+from coloring import SolarizedDark
 
 
 _absent = object()
@@ -361,3 +361,8 @@ class IceCreamDebugger:
 
 
 ic = IceCreamDebugger()
+
+if __name__ == "__main__":
+  from sympy.abc import x, y
+  d = {x: 1, y: 2}
+  ic(d)
